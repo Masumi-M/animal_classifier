@@ -1,5 +1,6 @@
 from flickrapi import FlickrAPI
 from urllib.request import urlretrieve
+import certifi
 from pprint import pprint
 import os
 import time
@@ -23,6 +24,8 @@ wait_time = 1
 
 animalname = sys.argv[1]
 savedir = "./" + animalname
+if not os.path.exists(savedir):
+    os.mkdir(savedir)
 
 flickr = FlickrAPI(api_id, api_secret, format='parsed-json')
 
@@ -36,4 +39,13 @@ result = flickr.photos.search(
 )
 
 photos = result['photos']
-pprint(photos)
+
+# pprint(photos)
+
+for i, photo in enumerate(photos['photo']):
+    url_q = photo['url_q']
+    filepath = savedir + '/' + photo['id'] + 'jpg'
+    if os.path.exists(filepath):
+        continue
+    urlretrieve(url_q, filepath)
+    time.sleep(wait_time)
