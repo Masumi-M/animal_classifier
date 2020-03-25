@@ -4,13 +4,13 @@ import glob
 import numpy as np
 from sklearn import model_selection
 
+classes = ["dog", "cat"]
+num_classes = len(classes)
+image_size = 50
+input_image_num = 200
+
 
 def main():
-    classes = ["dog", "cat"]
-    num_classes = len(classes)
-    image_size = 50
-    input_image_num = 200
-
     # 画像の読み込み
     X = []
     Y = []  # 正解ラベル（dog => 0, cat => 1）
