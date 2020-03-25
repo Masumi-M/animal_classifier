@@ -6,46 +6,51 @@ import os
 import time
 import sys
 
-path_api_id = './api_id.txt'
-path_api_secret = './api_secret.txt'
 
-f = open(path_api_id)
-api_id = f.read()
-f.close()
+def main(animalname):
+    path_api_id = './api_id.txt'
+    path_api_secret = './api_secret.txt'
 
-f = open(path_api_secret)
-api_secret = f.read()
-f.close()
+    f = open(path_api_id)
+    api_id = f.read()
+    f.close()
 
-print(api_id)
-print(api_secret)
+    f = open(path_api_secret)
+    api_secret = f.read()
+    f.close()
 
-wait_time = 1
+    print(api_id)
+    print(api_secret)
 
-animalname = sys.argv[1]
-savedir = "./" + animalname
-if not os.path.exists(savedir):
-    os.mkdir(savedir)
+    wait_time = 1
 
-flickr = FlickrAPI(api_id, api_secret, format='parsed-json')
+    savedir = "./" + animalname
+    if not os.path.exists(savedir):
+        os.mkdir(savedir)
 
-result = flickr.photos.search(
-    text=animalname,
-    per_page=400,
-    media='photos',
-    sort='relevance',
-    safe_search=1,
-    extras='url_q, licence'
-)
+    flickr = FlickrAPI(api_id, api_secret, format='parsed-json')
 
-photos = result['photos']
+    result = flickr.photos.search(
+        text=animalname,
+        per_page=400,
+        media='photos',
+        sort='relevance',
+        safe_search=1,
+        extras='url_q, licence'
+    )
 
-# pprint(photos)
+    photos = result['photos']
 
-for i, photo in enumerate(photos['photo']):
-    url_q = photo['url_q']
-    filepath = savedir + '/' + photo['id'] + '.jpg'
-    if os.path.exists(filepath):
-        continue
-    urlretrieve(url_q, filepath)
-    time.sleep(wait_time)
+    # pprint(photos)
+
+    for i, photo in enumerate(photos['photo']):
+        url_q = photo['url_q']
+        filepath = savedir + '/' + photo['id'] + '.jpg'
+        if os.path.exists(filepath):
+            continue
+        urlretrieve(url_q, filepath)
+        time.sleep(wait_time)
+
+
+if __name__ == '__main__':
+    main(sys.argv[1])
