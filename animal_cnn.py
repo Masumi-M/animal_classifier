@@ -1,6 +1,7 @@
 from keras.models import Sequentials
 from keras.layers import Conv2D, MaxPooling2D, Activation, Dropout, Flatten, Dense
 from keras.utils import np_utils
+import keras
 import numpy as np
 
 classes = ["dog", "cat"]
@@ -31,7 +32,7 @@ def model_train(X, Y):
     model = Sequentials()
 
     model.add(Conv2D(32, (3, 3,), padding='same',
-                     input_shape=X_Train.shape[1:]))
+                     input_shape=X.shape[1:]))
     model.add(Activation('relu'))
     model.add(Conv2D(32, (3, 3)))
     model.add(Activation('relu'))
