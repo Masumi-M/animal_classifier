@@ -8,4 +8,7 @@ if not os.path.exists('cat'):
 if not os.path.exists('dog'):
     download.main('dog')
 
-generate_data.main()
+if not os.path.exists('animal.npy'):
+    generate_data.main()
+
+print("=== Main Script Finished ===")
