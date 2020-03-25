@@ -44,7 +44,7 @@ photos = result['photos']
 
 for i, photo in enumerate(photos['photo']):
     url_q = photo['url_q']
-    filepath = savedir + '/' + photo['id'] + 'jpg'
+    filepath = savedir + '/' + photo['id'] + '.jpg'
     if os.path.exists(filepath):
         continue
     urlretrieve(url_q, filepath)
