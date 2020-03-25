@@ -1,4 +1,5 @@
 DS_Store
-**/*.jpg
+dog/*.jpg
+cat/*.jpg
 api_id.txt
 api_secret.txt
