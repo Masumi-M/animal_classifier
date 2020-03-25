@@ -20,10 +20,10 @@ def main():
     Y_train = np.utils.to_categorical(y_train, num_classes)
     y_test = np.utils.to_categorical(y_test, num_classes)
 
-    if not os.path.exists('animal_cnn.h5'):
-        model = model_train(X_train, Y_train)
-    else:
-        # model =
+    # if not os.path.exists('animal_cnn.h5'):
+    model = model_train(X_train, Y_train)
+    # else:
+    # model =
 
     model_eval(model, X_test, Y_test)
 
@@ -39,7 +39,7 @@ def model_train(X, Y):
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.25))
 
-    model.add(Conv2D(64, (3, 3,), padding='same')
+    model.add(Conv2D(64, (3, 3,), padding='same'))
     model.add(Activation('relu'))
     model.add(Conv2D(64, (3, 3)))
     model.add(Activation('relu'))
@@ -54,7 +54,7 @@ def model_train(X, Y):
     model.add(Dense(3))
     mdoel.add(Activation('softmax'))
 
-    opt=eras.optimizers.rmsprop(lr=0.0001, decay=1e-6)  # 最適化処理
+    opt = eras.optimizers.rmsprop(lr=0.0001, decay=1e-6)  # 最適化処理
     model.compile(loss='categorical_crossentropy',
                   optimizer=opt, metrics=['accuracy'])  # 損失関数
 
@@ -64,8 +64,9 @@ def model_train(X, Y):
 
     return model
 
+
 def model_eval(model, X, Y):
-    scores=model.evaluate(X, Y, verbose=1)
+    scores = model.evaluate(X, Y, verbose=1)
     print('Test Loss: ', scores[0])
     print('Accuracy: ', scores[1])
 
