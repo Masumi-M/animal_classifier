@@ -9,6 +9,9 @@ if not os.path.exists('cat'):
 if not os.path.exists('dog'):
     download.main('dog')
 
+if not os.path.exists('turtle'):
+    download.main('turtle')
+
 if not os.path.exists('animal.npy'):
     generate_data.main()
 
