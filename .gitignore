@@ -4,3 +4,4 @@ api_id.txt
 api_secret.txt
 __pycache__/
 *.h5
+database/
