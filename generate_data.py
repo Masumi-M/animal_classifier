@@ -15,7 +15,7 @@ def main():
     X = []
     Y = []  # 正解ラベル（dog => 0, cat => 1）
     for index, animal_class in enumerate(classes):
-        photos_dir = "./" + animal_class
+        photos_dir = "./database/" + animal_class
         files = glob.glob(photos_dir + "/*.jpg")
         for i, file in enumerate(files):
             if i >= input_image_num:
@@ -35,13 +35,14 @@ def main():
     print(len(Y))
 
     X_train, X_test, Y_train, Y_test = model_selection.train_test_split(
-        X, Y)   # split in 3:1
+        X, Y
+    )  # split in 3:1
     xy = (X_train, X_test, Y_train, Y_test)
-    np.save("./animal.npy", xy)
+    np.save("./database/animal.npy", xy)
 
     print(len(X_train), len(X_test))
     print(len(Y_train), len(Y_test))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

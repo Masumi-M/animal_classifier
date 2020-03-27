@@ -6,16 +6,19 @@ from keras.utils import np_utils
 import keras
 import numpy as np
 import pickle
+import os
+import time
+
 
 classes = ["dog", "cat", "turtle"]
 num_classes = len(classes)
 image_size = 50
-input_image_num = 200
-epoch_num = 10
+input_image_num = 300
+epoch_num = 100
+database_path = "./database/epoch_" + str(epoch_num)
 
 
 def main():
-    database_path = "./database/epoch_" + str(epoch_num)
     if not os.path.exists(database_path):
         os.mkdir(database_path)
 
@@ -31,7 +34,7 @@ def main():
     if not os.path.exists(database_path + "animal_cnn.h5"):
         start_time = time.time()
         model = model_train(X_train, Y_train, X_test, Y_test)
-        pprint("Calc Time: [" + str(time.time() - start_time) + "]")
+        print("Calc Time: [" + str(time.time() - start_time) + "]")
     else:
         model = keras.models.load_model(database_path + "animal_cnn.h5")
 
@@ -79,11 +82,11 @@ def model_train(X_train, Y_train, X_test, Y_test):
         validation_data=(X_test, Y_test),
     )
 
-    print(hist.history)
+    # print(hist.history)
 
     model.save(database_path + "/animal_cnn.h5")
-
-    pickle.dump(hist.history, database_path + "/history")
+    hist_file = open(database_path + "/history", "wb")
+    pickle.dump(hist.history, hist_file)
 
     return model
 
