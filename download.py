@@ -23,10 +23,10 @@ def main(animalname):
 
     wait_time = 1
 
-    savedir = "./" + animalname
+    savedir = "./database/" + animalname
     if not os.path.exists(savedir):
         os.mkdir(savedir)
-    photo_num = 400
+    photo_num = 20
 
     flickr = FlickrAPI(api_id, api_secret, format="parsed-json")
 
@@ -44,7 +44,6 @@ def main(animalname):
     pprint("  Fetch Completed.")
     pprint("  Start Download.")
 
-    start_time = time.time()
     download_loader = tqdm(total=photo_num)
     for i, photo in enumerate(photos["photo"]):
         download_loader.update(1)
@@ -56,7 +55,6 @@ def main(animalname):
         time.sleep(wait_time)
 
     download_loader.close()
-    pprint("Calc_time: [" + string(time.time() - start_time) + "]")
 
 
 if __name__ == "__main__":
