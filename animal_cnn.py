@@ -9,31 +9,33 @@ classes = ["dog", "cat", "turtle"]
 num_classes = len(classes)
 image_size = 50
 input_image_num = 200
-epoch_num = 20
+epoch_num = 10
 
 
 def main():
     X_train, X_test, Y_train, Y_test = np.load(
         "./animal.npy", allow_pickle=True)
 
-    X_train = X_train.astype("float") / 256
+    X_train = X_train.astype("float") / 256 # 要確認
     X_test = X_test.astype("float") / 256
     Y_train = np_utils.to_categorical(Y_train, num_classes)
-    y_test = np_utils.to_categorical(Y_test, num_classes)
+    Y_test = np_utils.to_categorical(Y_test, num_classes)
 
     # if not os.path.exists('animal_cnn.h5'):
-    model = model_train(X_train, Y_train)
+    model = model_train(X_train, Y_train, X_test, Y_test)
     # else:
     # model =
+
+    print(model.summary())
 
     model_eval(model, X_test, Y_test)
 
 
-def model_train(X, Y):
+def model_train(X_train, Y_train, X_test, Y_test):
     model = Sequential()
 
     model.add(Conv2D(32, (3, 3,), padding='same',
-                     input_shape=X.shape[1:]))
+                     input_shape=X_train.shape[1:]))
     model.add(Activation('relu'))
     model.add(Conv2D(32, (3, 3)))
     model.add(Activation('relu'))
@@ -59,8 +61,10 @@ def model_train(X, Y):
     model.compile(loss='categorical_crossentropy',
                   optimizer=opt, metrics=['accuracy'])  # 損失関数
 
-    model.fit(X, Y, batch_size=32, nb_epoch=epoch_num)
+    # hist = model.fit(X_train, Y_train, batch_size=32, epochs=epoch_num, validation_split=0.2)
+    hist = model.fit(X_train, Y_train, batch_size=32, epochs=epoch_num, validation_data=(X_test, Y_test))
 
+    print(hist.history)
     model.save('./animal_cnn.h5')
 
     return model
