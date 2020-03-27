@@ -3,3 +3,4 @@ DS_Store
 api_id.txt
 api_secret.txt
 __pycache__/
+*.h5
