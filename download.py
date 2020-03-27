@@ -26,7 +26,7 @@ def main(animalname):
     savedir = "./database/" + animalname
     if not os.path.exists(savedir):
         os.mkdir(savedir)
-    photo_num = 20
+    photo_num = 200
 
     flickr = FlickrAPI(api_id, api_secret, format="parsed-json")
 

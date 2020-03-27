@@ -19,20 +19,21 @@ def main():
     if not os.path.exists(database_path):
         os.mkdir(database_path)
 
-    X_train, X_test, Y_train, Y_test = np.load("./database/animal.npy", allow_pickle=True)
+    X_train, X_test, Y_train, Y_test = np.load(
+        "./database/animal.npy", allow_pickle=True
+    )
 
     X_train = X_train.astype("float") / 256  # 要確認
     X_test = X_test.astype("float") / 256
     Y_train = np_utils.to_categorical(Y_train, num_classes)
     Y_test = np_utils.to_categorical(Y_test, num_classes)
 
-    if not os.path.exists(database_path+'animal_cnn.h5'):
+    if not os.path.exists(database_path + "animal_cnn.h5"):
         start_time = time.time()
         model = model_train(X_train, Y_train, X_test, Y_test)
         pprint("Calc Time: [" + str(time.time() - start_time) + "]")
     else:
-        model = keras.models.load_model(database_path + 'animal_cnn.h5')
-        
+        model = keras.models.load_model(database_path + "animal_cnn.h5")
 
     print(model.summary())
 
