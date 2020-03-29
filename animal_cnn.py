@@ -23,6 +23,9 @@ def main():
     if not os.path.exists(database_path):
         os.mkdir(database_path)
 
+    if not os.path.exists(database_path + "/MNIST/"):
+        os.mkdir(database_path + "/MNIST/")
+
     X_train, X_test, Y_train, Y_test = np.load(
         "./database/animal.npy", allow_pickle=True
     )
