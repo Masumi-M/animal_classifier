@@ -17,6 +17,7 @@ if not os.path.exists(database_path + "/turtle"):
     download.main("turtle")
 
 if not os.path.exists(database_path + "animal.npy"):
+    print("===== Generate Data =====")
     generate_data.main()
 
 animal_cnn.main()

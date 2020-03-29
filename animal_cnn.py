@@ -8,13 +8,13 @@ import numpy as np
 import pickle
 import os
 import time
-
+import h5py
 
 classes = ["dog", "cat", "turtle"]
 num_classes = len(classes)
 image_size = 50
 input_image_num = 300
-epoch_num = 100
+epoch_num = 10
 database_path = "./database/epoch_" + str(epoch_num)
 
 
@@ -31,17 +31,20 @@ def main():
     Y_train = np_utils.to_categorical(Y_train, num_classes)
     Y_test = np_utils.to_categorical(Y_test, num_classes)
 
-    if not os.path.exists(database_path + "animal_cnn.h5"):
+    if not os.path.exists(database_path + "/animal_cnn.h5"):
+        print("\n===== Training =====")
         start_time = time.time()
         model = model_train(X_train, Y_train, X_test, Y_test)
         print("Calc Time: [" + str(time.time() - start_time) + "]")
     else:
-        model = keras.models.load_model(database_path + "animal_cnn.h5")
+        print("\n===== Model Load =====")
+        model = keras.models.load_model(database_path + "/animal_cnn.h5")
 
+    print("\n===== Model Summary =====")
     print(model.summary())
 
+    print("\n===== Model Evaluation =====")
     model_eval(model, X_test, Y_test)
-
 
 def model_train(X_train, Y_train, X_test, Y_test):
     model = Sequential()
@@ -83,10 +86,11 @@ def model_train(X_train, Y_train, X_test, Y_test):
     )
 
     # print(hist.history)
-
     model.save(database_path + "/animal_cnn.h5")
-    hist_file = open(database_path + "/history", "wb")
+
+    hist_file = open(database_path + "/history.pkl", "wb")
     pickle.dump(hist.history, hist_file)
+    hist_file.close()
 
     return model
 
@@ -94,7 +98,12 @@ def model_train(X_train, Y_train, X_test, Y_test):
 def model_eval(model, X, Y):
     scores = model.evaluate(X, Y, verbose=1)
     print("Test Loss: ", scores[0])
-    print("Accuracy: ", scores[1])
+    print("Test Accuracy: ", scores[1])
+
+    hist_file = open(database_path + "/history.pkl", "r")
+    hist_data = pickle.load(hist_file)
+    hist_file.close()
+    print(hist_data)
 
 
 if __name__ == "__main__":
