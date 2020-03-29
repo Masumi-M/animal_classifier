@@ -86,7 +86,7 @@ def model_train(X_train, Y_train, X_test, Y_test):
     )  # 損失関数
 
     es_cb = keras.callbacks.EarlyStopping(
-        monitor='val_loss', patience=2, verbose=1, mode='auto')
+        monitor='val_loss', patience=20, verbose=1, mode='auto')
     chkpt = os.path.join(database_path + "/MNIST/",
                          '{epoch:02d}-{val_loss:.2f}.h5')
     cp_cb = keras.callbacks.ModelCheckpoint(

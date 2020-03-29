@@ -37,7 +37,7 @@ def main():
                 Y_train.append(index)
 
                 # Rotation
-                for angle in range(-20, 20, 5):
+                for angle in range(-20, 20, 10):
                     img_r = image.rotate(angle)
                     data = np.asarray(img_r)
                     X_train.append(data)
