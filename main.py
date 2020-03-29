@@ -1,25 +1,25 @@
 import download
 import generate_data
 import animal_cnn
+import predict
 import os
 
 database_path = "./database"
 if not os.path.exists(database_path):
     os.mkdir(database_path)
 
-if not os.path.exists(database_path + "/cat"):
-    download.main("cat")
+classes = ["dog", "cat"]
+num_classes = len(classes)
 
-if not os.path.exists(database_path + "/dog"):
-    download.main("dog")
-
-if not os.path.exists(database_path + "/turtle"):
-    download.main("turtle")
+for i_class in range(num_classes):
+    if not os.path.exists(database_path + "/" + classes[i_class]):
+        download.main(classes[i_class])
 
 if not os.path.exists(database_path + "animal.npy"):
     print("===== Generate Data =====")
     generate_data.main()
 
 animal_cnn.main()
+predict.main()
 
 print("=== Main Script Finished ===")

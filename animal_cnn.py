@@ -11,11 +11,11 @@ import time
 import h5py
 import matplotlib.pyplot as plt
 
-classes = ["dog", "cat", "turtle"]
+classes = ["dog", "cat"]
 num_classes = len(classes)
 image_size = 50
 input_image_num = 300
-epoch_num = 10
+epoch_num = 100
 database_path = "./database/epoch_" + str(epoch_num)
 
 
@@ -71,7 +71,7 @@ def model_train(X_train, Y_train, X_test, Y_test):
     model.add(Dense(512))  # 全結合層
     model.add(Activation("relu"))
     model.add(Dropout(0.5))
-    model.add(Dense(3))
+    model.add(Dense(num_classes))
     model.add(Activation("softmax"))
 
     opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)  # 最適化処理
@@ -79,6 +79,7 @@ def model_train(X_train, Y_train, X_test, Y_test):
         loss="categorical_crossentropy", optimizer=opt, metrics=["accuracy"]
     )  # 損失関数
 
+    print(model.summary())
     # hist = model.fit(X_train, Y_train, batch_size=32, epochs=epoch_num, validation_split=0.2)
     hist = model.fit(
         X_train,

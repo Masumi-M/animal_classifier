@@ -7,7 +7,7 @@ from sklearn import model_selection
 classes = ["dog", "cat"]
 num_classes = len(classes)
 image_size = 50
-input_image_num = 200
+input_image_num = 300
 
 
 def main():
