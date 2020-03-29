@@ -84,7 +84,8 @@ def model_train(X_train, Y_train, X_test, Y_test):
 
     es_cb = keras.callbacks.EarlyStopping(
         monitor='val_loss', patience=2, verbose=1, mode='auto')
-    chkpt = os.path.join("./database/MNIST/", '{epoch:02d}-{val-loss:.2f}.h5')
+    chkpt = os.path.join(database_path + "/MNIST/",
+                         '{epoch:02d}-{val_loss:.2f}.h5')
     cp_cb = keras.callbacks.ModelCheckpoint(
         filepath=chkpt, monitor='val_loss', verbose=1, save_best_only=True, mode='auto')
 

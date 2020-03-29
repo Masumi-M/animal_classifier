@@ -8,12 +8,16 @@ classes = ["dog", "cat"]
 num_classes = len(classes)
 image_size = 50
 input_image_num = 300
+val_data_num = 100
 
 
 def main():
     # 画像の読み込み
-    X = []
-    Y = []  # 正解ラベル（dog => 0, cat => 1）
+    X_train = []
+    Y_train = []
+    X_test = []
+    Y_test = []  # 正解ラベル（dog => 0, cat => 1）
+
     for index, animal_class in enumerate(classes):
         photos_dir = "./database/" + animal_class
         files = glob.glob(photos_dir + "/*.jpg")
@@ -24,19 +28,37 @@ def main():
             image = image.convert("RGB")
             image = image.resize((image_size, image_size))
             data = np.asarray(image)
-            X.append(data)
-            Y.append(index)
 
-    X = np.array(X)
-    Y = np.array(Y)
+            if i < val_data_num:
+                X_test.append(data)
+                Y_test.append(index)
+            else:
+                X_train.append(data)
+                Y_train.append(index)
+
+                # Rotation
+                for angle in range(-20, 20, 5):
+                    img_r = image.rotate(angle)
+                    data = np.asarray(img_r)
+                    X_train.append(data)
+                    Y_train.append(index)
+
+                # Transpose
+                    img_t = image.transpose(Image.FLIP_LEFT_RIGHT)
+                    data = np.asarray(img_t)
+                    X_train.append(data)
+                    Y_train.append(index)
+
+    X_train = np.array(X_train)
+    Y_train = np.array(Y_train)
+    X_test = np.array(X_test)
+    Y_test = np.array(Y_test)
 
     # Cross Validation
-    print(len(X))
-    print(len(Y))
+    # X_train, X_test, Y_train, Y_test = model_selection.train_test_split(
+    #     X, Y
+    # )  # split in 3:1
 
-    X_train, X_test, Y_train, Y_test = model_selection.train_test_split(
-        X, Y
-    )  # split in 3:1
     xy = (X_train, X_test, Y_train, Y_test)
     np.save("./database/animal.npy", xy)
 
