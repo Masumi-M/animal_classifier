@@ -32,6 +32,9 @@ def main():
     Y_train = np_utils.to_categorical(Y_train, num_classes)
     Y_test = np_utils.to_categorical(Y_test, num_classes)
 
+    print(str(len(X_train)) + ", " + str(len(X_test)))
+    print(str(len(Y_train)) + ", " + str(len(Y_test)))
+
     if not os.path.exists(database_path + "/animal_cnn.h5"):
         print("\n===== Training =====")
         start_time = time.time()
@@ -79,8 +82,12 @@ def model_train(X_train, Y_train, X_test, Y_test):
         loss="categorical_crossentropy", optimizer=opt, metrics=["accuracy"]
     )  # 損失関数
 
-    print(model.summary())
-    # hist = model.fit(X_train, Y_train, batch_size=32, epochs=epoch_num, validation_split=0.2)
+    es_cb = keras.callbacks.EarlyStopping(
+        monitor='val_loss', patience=2, verbose=1, mode='auto')
+    chkpt = os.path.join("./database/MNIST/", '{epoch:02d}-{val-loss:.2f}.h5')
+    cp_cb = keras.callbacks.ModelCheckpoint(
+        filepath=chkpt, monitor='val_loss', verbose=1, save_best_only=True, mode='auto')
+
     hist = model.fit(
         X_train,
         Y_train,
@@ -101,8 +108,8 @@ def model_train(X_train, Y_train, X_test, Y_test):
 
 def model_eval(model, X, Y):
     scores = model.evaluate(X, Y, verbose=1)
-    print("Test Loss: ", scores[0])
-    print("Test Accuracy: ", scores[1])
+    print("Val Loss: ", scores[0])
+    print("Val Accuracy: ", scores[1])
 
     hist_file = open(database_path + "/history.pkl", "rb")
     hist_data = pickle.load(hist_file)
@@ -114,8 +121,6 @@ def model_eval(model, X, Y):
 
 
 def hist_visualize(hist_data):
-    print(hist_data)
-
     acc = hist_data['accuracy']
     loss = hist_data['loss']
     val_acc = hist_data['val_accuracy']

@@ -8,6 +8,9 @@ database_path = "./database"
 if not os.path.exists(database_path):
     os.mkdir(database_path)
 
+if not os.path.exists(database_path + '/MNIST'):
+    os.mkdir(database_path + '/MNIST')
+
 classes = ["dog", "cat"]
 num_classes = len(classes)
 
@@ -20,6 +23,5 @@ if not os.path.exists(database_path + "animal.npy"):
     generate_data.main()
 
 animal_cnn.main()
-predict.main()
 
 print("=== Main Script Finished ===")
