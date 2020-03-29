@@ -18,7 +18,7 @@ for i_class in range(num_classes):
     if not os.path.exists(database_path + "/" + classes[i_class]):
         download.main(classes[i_class])
 
-if not os.path.exists(database_path + "animal.npy"):
+if not os.path.exists(database_path + "/animal.npy"):
     print("===== Generate Data =====")
     generate_data.main()
 

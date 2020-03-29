@@ -94,6 +94,7 @@ def model_train(X_train, Y_train, X_test, Y_test):
         batch_size=32,
         epochs=epoch_num,
         validation_data=(X_test, Y_test),
+        callbacks=[es_cb, cp_cb]
     )
 
     # print(hist.history)
