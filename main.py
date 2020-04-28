@@ -21,4 +21,5 @@ if not os.path.exists(database_path + "/animal.npy"):
 
 animal_cnn.main()
 notify_line
+
 print("=== Main Script Finished ===")
