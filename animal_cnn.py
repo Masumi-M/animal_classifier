@@ -20,6 +20,8 @@ epoch_num = parameter.epoch_num
 kernel_size = parameter.kernel_size
 lay1_width = parameter.lay1_width
 lay2_width = parameter.lay2_width
+opt = parameter.opt
+
 database_path = "./database/epoch_" + str(epoch_num) + "_img" + str(image_size) + "_kernel" + str(kernel_size) 
 
 def main():
@@ -86,8 +88,6 @@ def model_train(X_train, Y_train, X_test, Y_test):
     model.add(Dense(num_classes))
     model.add(Activation("softmax"))
 
-    # opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)  # 最適化処理
-    opt = "adam"
     model.compile(
         loss="categorical_crossentropy", optimizer=opt, metrics=["accuracy"]
     )  # 損失関数
