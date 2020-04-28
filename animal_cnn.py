@@ -17,6 +17,8 @@ image_size = 256
 input_image_num = 300
 epoch_num = 50
 kernel_size = 5
+lay1_width = 32
+lay2_width = 64
 database_path = "./database/epoch_" + str(epoch_num) + "_img" + str(image_size) + "_kernel" + str(kernel_size) 
 
 
@@ -50,6 +52,9 @@ def main():
 
     print("\n===== Model Summary =====")
     print(model.summary())
+    model_file = open(database_path + "/model.pkl", "wb")
+    pickle.dump(model.summary(), model_file)
+    model_file.close()
 
     print("\n===== Model Evaluation =====")
     model_eval(model, X_test, Y_test)
@@ -58,17 +63,17 @@ def main():
 def model_train(X_train, Y_train, X_test, Y_test):
     model = Sequential()
 
-    model.add(Conv2D(32, (kernel_size, kernel_size,), padding="same",
+    model.add(Conv2D(lay1_width, (kernel_size, kernel_size,), padding="same",
                      input_shape=X_train.shape[1:]))
     model.add(Activation("relu"))
-    model.add(Conv2D(32, (kernel_size, kernel_size)))
+    model.add(Conv2D(lay1_width, (kernel_size, kernel_size)))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.25))
 
-    model.add(Conv2D(64, (kernel_size, kernel_size,), padding="same"))
+    model.add(Conv2D(lay2_width, (kernel_size, kernel_size,), padding="same"))
     model.add(Activation("relu"))
-    model.add(Conv2D(64, (kernel_size, kernel_size)))
+    model.add(Conv2D(lay2_width, (kernel_size, kernel_size)))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.25))
@@ -81,7 +86,8 @@ def model_train(X_train, Y_train, X_test, Y_test):
     model.add(Dense(num_classes))
     model.add(Activation("softmax"))
 
-    opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)  # 最適化処理
+    # opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)  # 最適化処理
+    opt = "adam"
     model.compile(
         loss="categorical_crossentropy", optimizer=opt, metrics=["accuracy"]
     )  # 損失関数
