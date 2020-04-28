@@ -9,7 +9,7 @@ if os.path.exists('line_token.txt'):
 
     line_notify_api = "https://notify-api.line.me/api/notify"
     if len(sys.argv) == 2:
-        message = '\nTractography Program Finished. \n 【' + sys.argv[1]  + '】'
+        message = '\nAnimal Classifier Program Finished. \n 【' + sys.argv[1]  + '】'
     else:
         message = '\nTractography Program Finished.'
 
