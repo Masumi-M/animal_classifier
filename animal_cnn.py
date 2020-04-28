@@ -16,7 +16,8 @@ num_classes = len(classes)
 image_size = 256
 input_image_num = 300
 epoch_num = 50
-database_path = "./database/epoch_" + str(epoch_num) + "_img" + str(image_size)
+kernel_size = 5
+database_path = "./database/epoch_" + str(epoch_num) + "_img" + str(image_size) + "_kernel" + str(kernel_size) 
 
 
 def main():
@@ -57,17 +58,17 @@ def main():
 def model_train(X_train, Y_train, X_test, Y_test):
     model = Sequential()
 
-    model.add(Conv2D(32, (3, 3,), padding="same",
+    model.add(Conv2D(32, (kernel_size, kernel_size,), padding="same",
                      input_shape=X_train.shape[1:]))
     model.add(Activation("relu"))
-    model.add(Conv2D(32, (3, 3)))
+    model.add(Conv2D(32, (kernel_size, kernel_size)))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.25))
 
-    model.add(Conv2D(64, (3, 3,), padding="same"))
+    model.add(Conv2D(64, (kernel_size, kernel_size,), padding="same"))
     model.add(Activation("relu"))
-    model.add(Conv2D(64, (3, 3)))
+    model.add(Conv2D(64, (kernel_size, kernel_size)))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.25))
