@@ -20,5 +20,5 @@ if not os.path.exists(database_path + "/animal.npy"):
     generate_data.main()
 
 animal_cnn.main()
-# notify_line "Lunch-Box"
+notify_line
 print("=== Main Script Finished ===")

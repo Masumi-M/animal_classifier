@@ -1,4 +1,4 @@
 import notify_line
 
-notify_line("Lunch-Box")
+notify_line
 print("=== Main Script Finished ===")

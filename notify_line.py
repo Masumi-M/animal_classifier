@@ -8,10 +8,7 @@ if os.path.exists('line_token.txt'):
     file_token.close()
 
     line_notify_api = "https://notify-api.line.me/api/notify"
-    if len(sys.argv) == 2:
-        message = '\nAnimal Classifier Program Finished. \n 【' + sys.argv[1]  + '】'
-    else:
-        message = '\nTractography Program Finished.'
+    message = '\Animal Classifier Program Finished.'
 
     payload = {'message': message}
     headers = {'Authorization': 'Bearer ' + line_notify_token}
