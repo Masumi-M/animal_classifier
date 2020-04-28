@@ -1,7 +1,9 @@
-DS_Store
+.DS_Store
 **/*.jpg
 api_id.txt
 api_secret.txt
 __pycache__/
 *.h5
 database/
+.vscode/
+line_token.txt
