@@ -10,15 +10,16 @@ import os
 import time
 import h5py
 import matplotlib.pyplot as plt
+import parameter.py
 
-classes = ["dog", "cat"]
-num_classes = len(classes)
-image_size = 256
-input_image_num = 300
-epoch_num = 50
-kernel_size = 5
-lay1_width = 32
-lay2_width = 64
+classes = parameter.classes
+num_classes = parameter.num_classes
+image_size = parameter.image_size
+input_image_num = parameter.input_image_num
+epoch_num = parameter.epoch_num
+kernel_size = parameter.kernel_size
+lay1_width = parameter.lay1_width
+lay2_width = parameter.lay2_width
 database_path = "./database/epoch_" + str(epoch_num) + "_img" + str(image_size) + "_kernel" + str(kernel_size) 
 
 

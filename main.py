@@ -4,13 +4,14 @@ import animal_cnn
 import predict
 import notify_line
 import os
+import parameter.py
 
 database_path = "./database"
 if not os.path.exists(database_path):
     os.mkdir(database_path)
 
-classes = ["dog", "cat"]
-num_classes = len(classes)
+classes = parameter.classes
+num_classes = parameter.num_classes
 
 for i_class in range(num_classes):
     if not os.path.exists(database_path + "/" + classes[i_class]):

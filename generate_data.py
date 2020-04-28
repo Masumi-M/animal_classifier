@@ -3,13 +3,13 @@ import os
 import glob
 import numpy as np
 from sklearn import model_selection
+import parameter.py
 
-classes = ["dog", "cat"]
-num_classes = len(classes)
-image_size = 256
-input_image_num = 300
-val_data_num = 100
-
+classes = parameter.classes
+num_classes = parameter.num_classes
+image_size = parameter.image_size
+input_image_num = parameter.input_image_num
+val_data_num = parameter.val_data_num
 
 def main():
     # 画像の読み込み
