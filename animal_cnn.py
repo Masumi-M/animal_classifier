@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 
 classes = ["dog", "cat"]
 num_classes = len(classes)
-image_size = 150
+image_size = 256
 input_image_num = 300
 epoch_num = 50
 database_path = "./database/epoch_" + str(epoch_num) + "_img" + str(image_size)
