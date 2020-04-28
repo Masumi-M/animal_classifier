@@ -3,7 +3,7 @@ import os
 import glob
 import numpy as np
 from sklearn import model_selection
-import parameter.py
+import parameter
 
 classes = parameter.classes
 num_classes = parameter.num_classes

@@ -4,7 +4,7 @@ import animal_cnn
 import predict
 import notify_line
 import os
-import parameter.py
+import parameter
 
 database_path = "./database"
 if not os.path.exists(database_path):

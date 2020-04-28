@@ -10,7 +10,7 @@ import os
 import time
 import h5py
 import matplotlib.pyplot as plt
-import parameter.py
+import parameter
 
 classes = parameter.classes
 num_classes = parameter.num_classes

@@ -5,7 +5,7 @@ import keras
 import sys
 import numpy as np
 from PIL import Image
-import parameter.py
+import parameter
 
 classes = parameter.classes
 num_classes = parameter.num_classes
