@@ -22,7 +22,6 @@ lay1_width = parameter.lay1_width
 lay2_width = parameter.lay2_width
 database_path = "./database/epoch_" + str(epoch_num) + "_img" + str(image_size) + "_kernel" + str(kernel_size) 
 
-
 def main():
     if not os.path.exists(database_path):
         os.mkdir(database_path)
