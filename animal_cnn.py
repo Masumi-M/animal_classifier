@@ -15,7 +15,7 @@ classes = ["dog", "cat"]
 num_classes = len(classes)
 image_size = 150
 input_image_num = 300
-epoch_num = 100
+epoch_num = 50
 database_path = "./database/epoch_" + str(epoch_num) + "_img" + str(imgage_size)
 
 
