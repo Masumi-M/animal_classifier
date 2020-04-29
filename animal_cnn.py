@@ -10,6 +10,7 @@ import os
 import time
 import h5py
 import matplotlib.pyplot as plt
+import notify_line
 import parameter
 
 classes = parameter.classes

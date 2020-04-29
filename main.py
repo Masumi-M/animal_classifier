@@ -2,7 +2,6 @@ import download
 import generate_data
 import animal_cnn
 import predict
-import notify_line
 import os
 import parameter
 
