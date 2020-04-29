@@ -31,7 +31,7 @@ def main():
         os.mkdir(database_path_current + "/MNIST/")
 
     X_train, X_test, Y_train, Y_test = np.load(
-        "./database/animal.npy", allow_pickle=True
+        database_path_current + "/animal.npy", allow_pickle=True
     )
 
     X_train = X_train.astype("float") / 256  # 要確認

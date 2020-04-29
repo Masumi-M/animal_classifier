@@ -34,8 +34,8 @@ def main():
                 X_test.append(data)
                 Y_test.append(index)
             else:
-                X_train.append(data)
-                Y_train.append(index)
+                # X_train.append(data)
+                # Y_train.append(index)
 
                 # Rotation
                 for angle in range(-20, 20, 10):
