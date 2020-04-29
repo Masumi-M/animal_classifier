@@ -10,6 +10,7 @@ num_classes = parameter.num_classes
 image_size = parameter.image_size
 input_image_num = parameter.input_image_num
 val_data_num = parameter.val_data_num
+database_path_current = parameter.database_path
 
 def main():
     # 画像の読み込み
@@ -60,7 +61,7 @@ def main():
     # )  # split in 3:1
 
     xy = (X_train, X_test, Y_train, Y_test)
-    np.save("./database/animal.npy", xy)
+    np.save(database_path_current + "/animal.npy", xy)
 
     print(len(X_train), len(X_test))
     print(len(Y_train), len(Y_test))

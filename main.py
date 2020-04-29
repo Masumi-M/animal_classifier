@@ -17,11 +17,14 @@ for i_class in range(num_classes):
     if not os.path.exists(database_path + "/" + classes[i_class]):
         download.main(classes[i_class])
 
-if not os.path.exists(database_path + "/animal.npy"):
+database_path_current = parameter.database_path
+if not os.path.exists(database_path_current):
+    os.mkdir(database_path_current)
+
+if not os.path.exists(database_path_current + "/animal.npy"):
     print("===== Generate Data =====")
     generate_data.main()
 
 animal_cnn.main()
-notify_line
 
 print("=== Main Script Finished ===")

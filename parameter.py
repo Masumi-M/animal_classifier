@@ -12,3 +12,5 @@ lay1_width = 32
 lay2_width = 64
 opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)  # 最適化処理
 # opt = "adam"
+
+database_path = "./database/epoch_" + str(epoch_num) + "_img" + str(image_size) + "_kernel" + str(kernel_size) 
