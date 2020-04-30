@@ -21,9 +21,10 @@ if not os.path.exists(database_path_current):
     os.mkdir(database_path_current)
 
 # 4-fold cross validation (1:3 x 4)
-for i_cross_num in range(parameter.cross_num):
+for i_cross_num in range(1, 1 + parameter.cross_num):
+    print(i_cross_num)
     database_path_current_cross = database_path_current + \
-        "_cross" + str(i_cross_num)
+        "/cross" + str(i_cross_num)
     if not os.path.exists(database_path_current_cross):
         os.mkdir(database_path_current_cross)
 

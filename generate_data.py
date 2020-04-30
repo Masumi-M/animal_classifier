@@ -27,7 +27,7 @@ def custom_randomize(rand_array, data):
 
 def main(cross_num):
     database_path_current_cross = database_path_current + \
-        "_cross" + str(cross_num)
+        "/cross" + str(cross_num)
 
     # 画像の読み込み
     X_train = []

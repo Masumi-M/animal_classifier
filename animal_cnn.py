@@ -27,8 +27,8 @@ database_path_current = parameter.database_path
 
 
 def main(cross_num):
-    database_path_current = database_path_current + \
-        "_cross" + str(cross_num)
+    database_path_current = parameter.database_path + \
+        "/cross" + str(cross_num)
     if not os.path.exists(database_path_current + "/MNIST/"):
         os.mkdir(database_path_current + "/MNIST/")
 
