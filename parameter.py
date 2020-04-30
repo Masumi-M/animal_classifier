@@ -4,10 +4,10 @@ import keras
 classes = ["dog", "crow"]
 num_classes = len(classes)
 image_size = 256
-# input_image_num = 320
-# val_data_num = 80
-input_image_num = 6
-val_data_num = 3
+input_image_num = 320
+val_data_num = 80
+# input_image_num = 6
+# val_data_num = 3
 epoch_num = 50
 kernel_size = 5
 lay1_width = 32

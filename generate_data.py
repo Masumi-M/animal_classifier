@@ -47,46 +47,41 @@ def main():
                 X_test.append(data)
                 Y_test.append(index)
             else:
-                # X_train.append(data)
-                # Y_train.append(index)
+                X_train.append(data)
+                Y_train.append(index)
 
                 # Rotation
-                for angle in range(-20, 20, 10):
-                    img_r = image.rotate(angle)
-                    data = np.asarray(img_r)
-                    X_train.append(data)
-                    Y_train.append(index)
+                # for angle in range(-20, 20, 10):
+                #     img_r = image.rotate(angle)
+                #     data = np.asarray(img_r)
+                #     X_train.append(data)
+                #     Y_train.append(index)
 
                 # Transpose
-                    img_t = image.transpose(Image.FLIP_LEFT_RIGHT)
-                    data = np.asarray(img_t)
-                    X_train.append(data)
-                    Y_train.append(index)
-
-    a_array = np.array([1, 2, 3, 4, 5, 6])
-    b_array = np.array([2, 3, 4, 5, 6, 7])
-    rand_array = list(range(len(a_array)))
-    np.random.shuffle(rand_array)
-    print(a_array)
-    print(b_array)
-    print(rand_array)
-    custom_randomize(rand_array, a_array)
-    custom_randomize(rand_array, b_array)
-    print(a_array)
-    print(b_array)
-
-    print(X_test)
-    print(Y_test)
+                img_t = image.transpose(Image.FLIP_LEFT_RIGHT)
+                data = np.asarray(img_t)
+                X_train.append(data)
+                Y_train.append(index)
 
     rand_array_test = list(range(len(X_test)))
     np.random.shuffle(rand_array_test)
-    custom_randomize(rand_array, X_test)
-    custom_randomize(rand_array, Y_test)
+    Y_test_array = np.copy(Y_test)
+    custom_randomize(rand_array_test, X_test)
+    custom_randomize(rand_array_test, Y_test_array)
 
     rand_array_train = list(range(len(X_train)))
     np.random.shuffle(rand_array_train)
-    custom_randomize(rand_array, X_train)
-    custom_randomize(rand_array, Y_train)
+    Y_train_array = np.copy(Y_train)
+    custom_randomize(rand_array_train, X_train)
+    custom_randomize(rand_array_train, Y_train_array)
+
+    for i_length in range(len(Y_test_array)):
+        temp = Y_test_array[i_length]
+        Y_test[i_length] = temp
+
+    for i_length in range(len(Y_train_array)):
+        temp = Y_train_array[i_length]
+        Y_train[i_length] = temp
 
     X_train = np.array(X_train)
     Y_train = np.array(Y_train)
