@@ -10,7 +10,6 @@ import os
 import time
 import h5py
 import matplotlib.pyplot as plt
-import notify_line
 import parameter
 
 classes = parameter.classes
@@ -179,7 +178,6 @@ def hist_visualize(hist_data, database_path_current):
                         top=0.9, wspace=0.3, hspace=0.2)
     plt.savefig(database_path_current + '/train_result.png')
     # plt.show()
-    notify_line
     return
 
 
