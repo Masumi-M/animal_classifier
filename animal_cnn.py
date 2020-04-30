@@ -25,13 +25,15 @@ opt = parameter.opt
 
 database_path_current = parameter.database_path
 
-def main():
 
-    if not os.path.exists(database_path_current + "/MNIST/"):
-        os.mkdir(database_path_current + "/MNIST/")
+def main(cross_num):
+    database_path_current_cross = database_path_current + \
+        "_cross" + str(cross_num)
+    if not os.path.exists(database_path_current_cross + "/MNIST/"):
+        os.mkdir(database_path_current_cross + "/MNIST/")
 
     X_train, X_test, Y_train, Y_test = np.load(
-        database_path_current + "/animal.npy", allow_pickle=True
+        database_path_current_cross + "/animal.npy", allow_pickle=True
     )
 
     X_train = X_train.astype("float") / 256  # 要確認
@@ -42,18 +44,19 @@ def main():
     print(str(len(X_train)) + ", " + str(len(X_test)))
     print(str(len(Y_train)) + ", " + str(len(Y_test)))
 
-    if not os.path.exists(database_path_current + "/animal_cnn.h5"):
+    if not os.path.exists(database_path_current_cross + "/animal_cnn.h5"):
         print("\n===== Training =====")
         start_time = time.time()
         model = model_train(X_train, Y_train, X_test, Y_test)
         print("Calc Time: [" + str(time.time() - start_time) + "]")
     else:
         print("\n===== Model Load =====")
-        model = keras.models.load_model(database_path_current + "/animal_cnn.h5")
+        model = keras.models.load_model(
+            database_path_current_cross + "/animal_cnn.h5")
 
     print("\n===== Model Summary =====")
     print(model.summary())
-    model_file = open(database_path_current + "/model.pkl", "wb")
+    model_file = open(database_path_current_cross + "/model.pkl", "wb")
     pickle.dump(model.summary(), model_file)
     model_file.close()
 
@@ -93,7 +96,7 @@ def model_train(X_train, Y_train, X_test, Y_test):
 
     es_cb = keras.callbacks.EarlyStopping(
         monitor='val_loss', patience=10, verbose=1, mode='auto')
-    chkpt = os.path.join(database_path_current + "/MNIST/",
+    chkpt = os.path.join(database_path_current_cross + "/MNIST/",
                          '{epoch:02d}-{val_loss:.2f}.h5')
     cp_cb = keras.callbacks.ModelCheckpoint(
         filepath=chkpt, monitor='val_loss', verbose=1, save_best_only=True, mode='auto')
@@ -117,9 +120,9 @@ def model_train(X_train, Y_train, X_test, Y_test):
     )
 
     # print(hist.history)
-    model.save(database_path_current + "/animal_cnn.h5")
+    model.save(database_path_current_cross + "/animal_cnn.h5")
 
-    hist_file = open(database_path_current + "/history.pkl", "wb")
+    hist_file = open(database_path_current_cross + "/history.pkl", "wb")
     pickle.dump(hist.history, hist_file)
     hist_file.close()
 
@@ -131,7 +134,7 @@ def model_eval(model, X, Y):
     print("Val Loss: ", scores[0])
     print("Val Accuracy: ", scores[1])
 
-    hist_file = open(database_path_current + "/history.pkl", "rb")
+    hist_file = open(database_path_current_cross + "/history.pkl", "rb")
     hist_data = pickle.load(hist_file)
     hist_file.close()
 
@@ -175,7 +178,7 @@ def hist_visualize(hist_data):
     # Save and Show
     plt.subplots_adjust(left=0.125, right=0.9, bottom=0.15,
                         top=0.9, wspace=0.3, hspace=0.2)
-    plt.savefig(database_path_current + '/train_result.png')
+    plt.savefig(database_path_current_cross + '/train_result.png')
     # plt.show()
     notify_line
     return

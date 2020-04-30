@@ -6,6 +6,7 @@ num_classes = len(classes)
 image_size = 256
 input_image_num = 320
 val_data_num = 80
+cross_num = 4
 # input_image_num = 6
 # val_data_num = 3
 epoch_num = 50

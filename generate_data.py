@@ -25,16 +25,21 @@ def custom_randomize(rand_array, data):
     return data
 
 
-def main():
+def main(cross_num):
+    database_path_current_cross = database_path_current + \
+        "_cross" + str(cross_num)
+
     # 画像の読み込み
     X_train = []
     Y_train = []
     X_test = []
     Y_test = []  # 正解ラベル（dog => 0, cat => 1）
+    np.random.seed(10)
 
     for index, animal_class in enumerate(classes):
         photos_dir = "./database/" + animal_class
         files = glob.glob(photos_dir + "/*.jpg")
+        # np.random.shuffle(files)
         for i, file in enumerate(files):
             if i >= input_image_num:
                 break
@@ -43,7 +48,7 @@ def main():
             image = image.resize((image_size, image_size))
             data = np.asarray(image)
 
-            if i < val_data_num:
+            if (i >= val_data_num*(cross_num-1)) and (i < val_data_num*cross_num):
                 X_test.append(data)
                 Y_test.append(index)
             else:
@@ -94,11 +99,11 @@ def main():
     # )  # split in 3:1
 
     xy = (X_train, X_test, Y_train, Y_test)
-    np.save(database_path_current + "/animal.npy", xy)
+    np.save(database_path_current_cross + "/animal.npy", xy)
 
     print(len(X_train), len(X_test))
     print(len(Y_train), len(Y_test))
 
 
 if __name__ == "__main__":
-    main()
+    main(0)

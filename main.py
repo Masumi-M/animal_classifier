@@ -20,10 +20,18 @@ database_path_current = parameter.database_path
 if not os.path.exists(database_path_current):
     os.mkdir(database_path_current)
 
-if not os.path.exists(database_path_current + "/animal.npy"):
-    print("===== Generate Data =====")
-    generate_data.main()
+# 4-fold cross validation (1:3 x 4)
+for i_cross_num in range(parameter.cross_num):
+    database_path_current_cross = database_path_current + \
+        "_cross" + str(i_cross_num)
+    if not os.path.exists(database_path_current_cross):
+        os.mkdir(database_path_current_cross)
 
-animal_cnn.main()
+    if not os.path.exists(database_path_current_cross + "/animal_.npy"):
+        print("===== Generate Data =====")
+        generate_data.main(i_cross_num)
+
+    animal_cnn.main(i_cross_num)
+
 
 print("=== Main Script Finished ===")
