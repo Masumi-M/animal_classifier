@@ -4,6 +4,7 @@ import glob
 import numpy as np
 from sklearn import model_selection
 import parameter
+import numpy as np
 
 classes = parameter.classes
 num_classes = parameter.num_classes
@@ -11,6 +12,18 @@ image_size = parameter.image_size
 input_image_num = parameter.input_image_num
 val_data_num = parameter.val_data_num
 database_path_current = parameter.database_path
+
+
+def custom_randomize(rand_array, data):
+    temp = np.copy(data[0])
+    for i_length in range(len(rand_array)):
+        i_rand = rand_array[i_length]
+        data[0] = np.copy(data[i_rand])
+        data[i_rand] = np.copy(temp)
+        temp = np.copy(data[0])
+
+    return data
+
 
 def main():
     # 画像の読み込み
@@ -49,6 +62,31 @@ def main():
                     data = np.asarray(img_t)
                     X_train.append(data)
                     Y_train.append(index)
+
+    a_array = np.array([1, 2, 3, 4, 5, 6])
+    b_array = np.array([2, 3, 4, 5, 6, 7])
+    rand_array = list(range(len(a_array)))
+    np.random.shuffle(rand_array)
+    print(a_array)
+    print(b_array)
+    print(rand_array)
+    custom_randomize(rand_array, a_array)
+    custom_randomize(rand_array, b_array)
+    print(a_array)
+    print(b_array)
+
+    print(X_test)
+    print(Y_test)
+
+    rand_array_test = list(range(len(X_test)))
+    np.random.shuffle(rand_array_test)
+    custom_randomize(rand_array, X_test)
+    custom_randomize(rand_array, Y_test)
+
+    rand_array_train = list(range(len(X_train)))
+    np.random.shuffle(rand_array_train)
+    custom_randomize(rand_array, X_train)
+    custom_randomize(rand_array, Y_train)
 
     X_train = np.array(X_train)
     Y_train = np.array(Y_train)
