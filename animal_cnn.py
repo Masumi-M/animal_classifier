@@ -23,8 +23,6 @@ lay1_width = parameter.lay1_width
 lay2_width = parameter.lay2_width
 opt = parameter.opt
 
-database_path_current = parameter.database_path
-
 
 def main(cross_num):
     database_path_current = parameter.database_path + \
@@ -47,7 +45,8 @@ def main(cross_num):
     if not os.path.exists(database_path_current + "/animal_cnn.h5"):
         print("\n===== Training =====")
         start_time = time.time()
-        model = model_train(X_train, Y_train, X_test, Y_test)
+        model = model_train(X_train, Y_train, X_test,
+                            Y_test, database_path_current)
         print("Calc Time: [" + str(time.time() - start_time) + "]")
     else:
         print("\n===== Model Load =====")
@@ -61,10 +60,10 @@ def main(cross_num):
     model_file.close()
 
     print("\n===== Model Evaluation =====")
-    model_eval(model, X_test, Y_test)
+    model_eval(model, X_test, Y_test, database_path_current)
 
 
-def model_train(X_train, Y_train, X_test, Y_test):
+def model_train(X_train, Y_train, X_test, Y_test, database_path_current):
     model = Sequential()
 
     model.add(Conv2D(lay1_width, (kernel_size, kernel_size,), padding="same",
@@ -129,7 +128,7 @@ def model_train(X_train, Y_train, X_test, Y_test):
     return model
 
 
-def model_eval(model, X, Y):
+def model_eval(model, X, Y, database_path_current):
     scores = model.evaluate(X, Y, verbose=1)
     print("Val Loss: ", scores[0])
     print("Val Accuracy: ", scores[1])
@@ -138,12 +137,12 @@ def model_eval(model, X, Y):
     hist_data = pickle.load(hist_file)
     hist_file.close()
 
-    hist_visualize(hist_data)
+    hist_visualize(hist_data, database_path_current)
 
     return
 
 
-def hist_visualize(hist_data):
+def hist_visualize(hist_data, database_path_current):
     acc = hist_data['accuracy']
     loss = hist_data['loss']
     val_acc = hist_data['val_accuracy']
