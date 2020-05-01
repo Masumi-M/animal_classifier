@@ -5,21 +5,28 @@ import notify_line
 import predict
 import os
 import parameter
+import shutil
 
 database_path = "./database"
 if not os.path.exists(database_path):
     os.mkdir(database_path)
 
+# Set Parameter
 classes = parameter.classes
 num_classes = parameter.num_classes
 
-for i_class in range(num_classes):
-    if not os.path.exists(database_path + "/" + classes[i_class]):
-        download.main(classes[i_class])
-
+# Creaete Save Dir
 database_path_current = parameter.database_path
 if not os.path.exists(database_path_current):
     os.mkdir(database_path_current)
+
+# Copy Parameter File
+shutil.copyfile("./parameter.py", database_path_current + "/parameter.py")
+
+# Download Image
+for i_class in range(num_classes):
+    if not os.path.exists(database_path + "/" + classes[i_class]):
+        download.main(classes[i_class])
 
 # 4-fold cross validation (1:3 x 4)
 for i_cross_num in range(1, 1 + parameter.cross_num):
