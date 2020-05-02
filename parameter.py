@@ -13,6 +13,9 @@ kernel_size = 3
 lay1_width = 64
 lay2_width = 32
 lay3_width = 16
+conn1_width = 512
+conn2_width = 256
+conn3_width = num_classes
 
 opt_name = "rmsprop"
 # opt_name = "adam"
