@@ -20,6 +20,7 @@ epoch_num = parameter.epoch_num
 kernel_size = parameter.kernel_size
 lay1_width = parameter.lay1_width
 lay2_width = parameter.lay2_width
+lay3_width = parameter.lay3_width
 opt = parameter.opt
 
 
@@ -76,6 +77,13 @@ def model_train(X_train, Y_train, X_test, Y_test, database_path_current):
     model.add(Conv2D(lay2_width, (kernel_size, kernel_size,), padding="same"))
     model.add(Activation("relu"))
     model.add(Conv2D(lay2_width, (kernel_size, kernel_size)))
+    model.add(Activation("relu"))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.25))
+
+    model.add(Conv2D(lay3_width, (kernel_size, kernel_size,), padding="same"))
+    model.add(Activation("relu"))
+    model.add(Conv2D(lay3_width, (kernel_size, kernel_size)))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.25))

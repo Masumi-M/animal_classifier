@@ -16,8 +16,9 @@ kernel_size = parameter.kernel_size
 lay1_width = parameter.lay1_width
 lay2_width = parameter.lay2_width
 opt = parameter.opt
+lay3_width = parameter.lay3_width
+database_path = parameter.database_path
 
-database_path = "./database/epoch_" + str(epoch_num) + "_img" + str(image_size) + "_kernel" + str(kernel_size) 
 
 def build_model():
     model = Sequential()
@@ -33,6 +34,13 @@ def build_model():
     model.add(Conv2D(lay2_width, (kernel_size, kernel_size,), padding="same"))
     model.add(Activation("relu"))
     model.add(Conv2D(lay2_width, (kernel_size, kernel_size)))
+    model.add(Activation("relu"))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.25))
+
+    model.add(Conv2D(lay3_width, (kernel_size, kernel_size,), padding="same"))
+    model.add(Activation("relu"))
+    model.add(Conv2D(lay3_width, (kernel_size, kernel_size)))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.25))

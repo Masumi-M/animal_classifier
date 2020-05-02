@@ -1,7 +1,7 @@
 # Parameter List
 import keras
 
-version = "4_0"
+version = "5_0"
 classes = ["dog", "crow"]
 num_classes = len(classes)
 image_size = 256
@@ -11,7 +11,8 @@ cross_num = 4
 epoch_num = 50
 kernel_size = 3
 lay1_width = 64
-lay2_width = 128
+lay2_width = 32
+lay3_width = 16
 
 opt_name = "rmsprop"
 # opt_name = "adam"
