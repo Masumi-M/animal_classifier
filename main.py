@@ -1,6 +1,7 @@
 import download
 import generate_data
 import animal_cnn
+import calc_mean
 import notify_line
 import predict
 import os
@@ -41,6 +42,8 @@ for i_cross_num in range(1, 1 + parameter.cross_num):
         generate_data.main(i_cross_num)
 
     animal_cnn.main(i_cross_num)
+
+calc_mean.main()
 
 notify_line.main()
 

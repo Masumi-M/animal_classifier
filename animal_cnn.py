@@ -11,6 +11,7 @@ import time
 import h5py
 import matplotlib.pyplot as plt
 import parameter
+import tensorflow.python.keras.callbacks import tensorboard
 
 classes = parameter.classes
 num_classes = parameter.num_classes
@@ -22,9 +23,11 @@ lay1_width = parameter.lay1_width
 lay2_width = parameter.lay2_width
 lay3_width = parameter.lay3_width
 lay4_width = parameter.lay4_width
+lay5_width = parameter.lay5_width
 conn1_width = parameter.conn1_width
 conn2_width = parameter.conn2_width
 conn3_width = parameter.conn3_width
+conn4_width = parameter.conn4_width
 opt = parameter.opt
 batch_size = parameter.batch_size
 early_stopping_patient = parameter.early_stopping_patient
@@ -101,6 +104,13 @@ def model_train(X_train, Y_train, X_test, Y_test, database_path_current):
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.25))
 
+    model.add(Conv2D(lay5_width, (kernel_size, kernel_size,), padding="same"))
+    model.add(Activation("relu"))
+    model.add(Conv2D(lay5_width, (kernel_size, kernel_size)))
+    model.add(Activation("relu"))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.25))
+
     model.add(Flatten())  # Flat処理、一列にする
 
     model.add(Dense(conn1_width))  # 全結合層
@@ -110,6 +120,9 @@ def model_train(X_train, Y_train, X_test, Y_test, database_path_current):
     model.add(Activation("relu"))
     model.add(Dropout(0.5))
     model.add(Dense(conn3_width))
+    model.add(Activation("relu"))
+    model.add(Dropout(0.5))
+    model.add(Dense(conn4_width))
     model.add(Activation("softmax"))
 
     model.compile(
@@ -122,6 +135,7 @@ def model_train(X_train, Y_train, X_test, Y_test, database_path_current):
                          '{epoch:02d}-{val_loss:.2f}.h5')
     cp_cb = keras.callbacks.ModelCheckpoint(
         filepath=chkpt, monitor='val_loss', verbose=1, save_best_only=True, mode='auto')
+    tsb = tensorboard(log_dir=database_path_current+"/tsb_logs")
 
     hist = model.fit(
         X_train,
@@ -129,18 +143,9 @@ def model_train(X_train, Y_train, X_test, Y_test, database_path_current):
         batch_size=batch_size,
         epochs=epoch_num,
         validation_data=(X_test, Y_test),
-        callbacks=[es_cb, cp_cb]
+        callbacks=[es_cb, cp_cb, tsb]
     )
 
-    # hist = model.fit(
-    #     X_train,
-    #     Y_train,
-    #     batch_size=batch_size
-    #     epochs=epoch_num,
-    #     validation_data=(X_test, Y_test),
-    #     callbacks=[cp_cb]
-    # )
-    # print(hist.history)
     model.save(database_path_current + "/animal_cnn.h5")
 
     hist_file = open(database_path_current + "/history.pkl", "wb")
