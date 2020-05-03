@@ -16,6 +16,7 @@ kernel_size = parameter.kernel_size
 lay1_width = parameter.lay1_width
 lay2_width = parameter.lay2_width
 lay3_width = parameter.lay3_width
+lay4_width = parameter.lay4_width
 opt = parameter.opt
 
 database_path = parameter.database_path
@@ -49,6 +50,13 @@ def build_model():
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.25))
 
+    model.add(Conv2D(lay4_width, (kernel_size, kernel_size,), padding="same"))
+    model.add(Activation("relu"))
+    model.add(Conv2D(lay4_width, (kernel_size, kernel_size)))
+    model.add(Activation("relu"))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.25))
+    
     model.add(Flatten())  # Flat処理、一列にする
 
     model.add(Dense(conn1_width))  # 全結合層
