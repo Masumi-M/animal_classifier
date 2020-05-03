@@ -3,19 +3,25 @@ import pickle
 import matplotlib.pyplot as plt
 import parameter
 
-database_path = parameter.database_path 
+database_path = parameter.database_path
 cross_num = parameter.cross_num
+epoch_num = parameter.epoch_num
 
 def main():
+    hist_all_acc = np.zeros((5, epoch_num))
+    hist_all_acc[:,:] = np.nan
+
     for i_cross in range(cross_num):
         database_path_cross = database_path + "/cross" + str(i_cross + 1)
         print(database_path_cross)
         hist_file = open(database_path_cross + "/history.pkl", "rb")
         hist_data = pickle.load(hist_file)
         hist_file.close()
-        hist_data_array[i_cross] = hist_data['val_loss'] 
-        print(len(hist_data['val_loss']))
-        # print()
+        print(hist_data['accuracy'])
+        hist_all_acc[i_cross, len(hist_data['accuracy'])] = np.array(hist_data['accuracy'])
+    
+    hist_all_acc_mean = np.nanmean(hist_all_acc, axis=0)
+    print(hist_all_acc_mean)
 
     # hist_visualize(hist_data, database_path)
 
