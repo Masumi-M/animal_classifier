@@ -7,9 +7,19 @@ database_path = parameter.database_path
 cross_num = parameter.cross_num
 epoch_num = parameter.epoch_num
 
+
 def main():
     hist_all_acc = np.zeros((5, epoch_num))
-    hist_all_acc[:,:] = np.nan
+    hist_all_acc[:, :] = np.nan
+
+    hist_all_val_acc = np.zeros((5, epoch_num))
+    hist_all_val_acc[:, :] = np.nan
+
+    hist_all_loss = np.zeros((5, epoch_num))
+    hist_all_loss[:, :] = np.nan
+
+    hist_all_val_loss = np.zeros((5, epoch_num))
+    hist_all_val_loss[:, :] = np.nan
 
     for i_cross in range(cross_num):
         database_path_cross = database_path + "/cross" + str(i_cross + 1)
@@ -17,21 +27,31 @@ def main():
         hist_file = open(database_path_cross + "/history.pkl", "rb")
         hist_data = pickle.load(hist_file)
         hist_file.close()
-        print(hist_data['accuracy'])
-        hist_all_acc[i_cross, len(hist_data['accuracy'])] = np.array(hist_data['accuracy'])
-    
+
+        hist_all_acc[i_cross, 0:len(hist_data['accuracy'])
+                     ] = hist_data['accuracy']
+
+        hist_all_val_acc[i_cross, 0:len(hist_data['val_accuracy'])
+                         ] = hist_data['val_accuracy']
+
+        hist_all_loss[i_cross, 0:len(hist_data['loss'])
+                      ] = hist_data['loss']
+
+        hist_all_val_loss[i_cross, 0:len(hist_data['val_loss'])
+                          ] = hist_data['val_loss']
+
     hist_all_acc_mean = np.nanmean(hist_all_acc, axis=0)
-    print(hist_all_acc_mean)
+    hist_all_val_acc_mean = np.nanmean(hist_all_val_acc, axis=0)
+    hist_all_loss_mean = np.nanmean(hist_all_loss, axis=0)
+    hist_all_val_loss_mean = np.nanmean(hist_all_val_loss, axis=0)
 
-    # hist_visualize(hist_data, database_path)
+    hist_visualize(hist_all_acc_mean, hist_all_val_acc_mean,
+                   hist_all_loss_mean, hist_all_val_loss_mean, database_path)
 
-def hist_visualize(hist_data, database_path):
-    acc = hist_data['accuracy']
-    loss = hist_data['loss']
-    val_acc = hist_data['val_accuracy']
-    val_loss = hist_data['val_loss']
 
-    epochs = range(len(acc))
+def hist_visualize(acc, val_acc, loss, val_loss, database_path):
+
+    epochs = range(epoch_num)
 
     fig = plt.figure(figsize=(7, 4))
 
@@ -63,6 +83,7 @@ def hist_visualize(hist_data, database_path):
     plt.savefig(database_path + '/train_result.png')
     # plt.show()
     return
+
 
 if __name__ == "__main__":
     main()
