@@ -11,7 +11,6 @@ import time
 import h5py
 import matplotlib.pyplot as plt
 import parameter
-import tensorflow.python.keras.callbacks import tensorboard
 
 classes = parameter.classes
 num_classes = parameter.num_classes
@@ -135,7 +134,6 @@ def model_train(X_train, Y_train, X_test, Y_test, database_path_current):
                          '{epoch:02d}-{val_loss:.2f}.h5')
     cp_cb = keras.callbacks.ModelCheckpoint(
         filepath=chkpt, monitor='val_loss', verbose=1, save_best_only=True, mode='auto')
-    tsb = tensorboard(log_dir=database_path_current+"/tsb_logs")
 
     hist = model.fit(
         X_train,
@@ -143,7 +141,7 @@ def model_train(X_train, Y_train, X_test, Y_test, database_path_current):
         batch_size=batch_size,
         epochs=epoch_num,
         validation_data=(X_test, Y_test),
-        callbacks=[es_cb, cp_cb, tsb]
+        callbacks=[es_cb, cp_cb]
     )
 
     model.save(database_path_current + "/animal_cnn.h5")
