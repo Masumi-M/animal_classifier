@@ -25,6 +25,7 @@ conn1_width = parameter.conn1_width
 conn2_width = parameter.conn2_width
 conn3_width = parameter.conn3_width
 opt = parameter.opt
+batch_size = parameter.batch_size
 
 
 def main(cross_num):
@@ -116,7 +117,7 @@ def model_train(X_train, Y_train, X_test, Y_test, database_path_current):
     hist = model.fit(
         X_train,
         Y_train,
-        batch_size=32,
+        batch_size=batch_size,
         epochs=epoch_num,
         validation_data=(X_test, Y_test),
         callbacks=[es_cb, cp_cb]
@@ -125,7 +126,7 @@ def model_train(X_train, Y_train, X_test, Y_test, database_path_current):
     # hist = model.fit(
     #     X_train,
     #     Y_train,
-    #     batch_size=32,
+    #     batch_size=batch_size
     #     epochs=epoch_num,
     #     validation_data=(X_test, Y_test),
     #     callbacks=[cp_cb]

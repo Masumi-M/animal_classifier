@@ -1,14 +1,14 @@
 # Parameter List
 import keras
 
-version = "5_1"
+version = "5_2"
 classes = ["dog", "crow"]
 num_classes = len(classes)
 image_size = 256
 input_image_num = 320
 val_data_num = 80
 cross_num = 4
-epoch_num = 50
+epoch_num = 70
 kernel_size = 3
 lay1_width = 64
 lay2_width = 32
@@ -16,7 +16,7 @@ lay3_width = 16
 conn1_width = 512
 conn2_width = 256
 conn3_width = num_classes
-
+batch_size = 64
 opt_name = "rmsprop"
 # opt_name = "adam"
 
