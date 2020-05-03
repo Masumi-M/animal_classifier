@@ -3,14 +3,15 @@ import os
 import sys
 
 
-def main():
+def main(calc_time):
     if os.path.exists('line_token.txt'):
         file_token = open('line_token.txt')
         line_notify_token = file_token.read()
         file_token.close()
 
         line_notify_api = "https://notify-api.line.me/api/notify"
-        message = '\Animal Classifier Program Finished.'
+        message = '\nAnimal Classifier Program Finished.【' + \
+            str(calc_time) + '】'
 
         payload = {'message': message}
         headers = {'Authorization': 'Bearer ' + line_notify_token}
@@ -21,4 +22,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(0)

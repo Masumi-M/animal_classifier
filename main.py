@@ -9,6 +9,7 @@ import time
 import parameter
 import shutil
 
+start_time = time.time()
 database_path = "./database"
 if not os.path.exists(database_path):
     os.mkdir(database_path)
@@ -46,6 +47,7 @@ for i_cross_num in range(1, 1 + parameter.cross_num):
 
 calc_mean.main()
 
-notify_line.main()
+calc_time = time.time() - start_time
+notify_line.main(calc_time)
 
 print("=== Main Script Finished ===")
