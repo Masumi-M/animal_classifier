@@ -26,6 +26,7 @@ conn2_width = parameter.conn2_width
 conn3_width = parameter.conn3_width
 opt = parameter.opt
 batch_size = parameter.batch_size
+early_stopping_patient = parameter.early_stopping_patient
 
 
 def main(cross_num):
@@ -108,7 +109,7 @@ def model_train(X_train, Y_train, X_test, Y_test, database_path_current):
     )  # 損失関数
 
     es_cb = keras.callbacks.EarlyStopping(
-        monitor='val_loss', patience=5, verbose=1, mode='auto')
+        monitor='val_loss', patience=early_stopping_patient, verbose=1, mode='auto')
     chkpt = os.path.join(database_path_current + "/MNIST/",
                          '{epoch:02d}-{val_loss:.2f}.h5')
     cp_cb = keras.callbacks.ModelCheckpoint(
