@@ -23,7 +23,7 @@ lay2_width = parameter.lay2_width
 lay3_width = parameter.lay3_width
 lay4_width = parameter.lay4_width
 lay5_width = parameter.lay5_width
-conn1_width = parameter.conn1_width
+# conn1_width = parameter.conn1_width
 conn2_width = parameter.conn2_width
 conn3_width = parameter.conn3_width
 conn4_width = parameter.conn4_width
@@ -112,9 +112,9 @@ def model_train(X_train, Y_train, X_test, Y_test, database_path_current):
 
     model.add(Flatten())  # Flat処理、一列にする
 
-    model.add(Dense(conn1_width))  # 全結合層
-    model.add(Activation("relu"))
-    model.add(Dropout(0.5))
+    # model.add(Dense(conn1_width))  # 全結合層
+    # model.add(Activation("relu"))
+    # model.add(Dropout(0.5))
     model.add(Dense(conn2_width))  # 全結合層
     model.add(Activation("relu"))
     model.add(Dropout(0.5))

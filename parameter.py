@@ -1,8 +1,8 @@
 # Parameter List
 import keras
 
-version = "6_0"
-classes = ["dog", "crow"]
+version = "6_1_2"
+classes = ["dog", "cat"]
 num_classes = len(classes)
 image_size = 256
 input_image_num = 320
@@ -17,7 +17,7 @@ lay2_width = 32
 lay3_width = 64
 lay4_width = 128
 lay5_width = 256
-conn1_width = 512
+# conn1_width = 512
 conn2_width = 256
 conn3_width = 128
 conn4_width = num_classes
