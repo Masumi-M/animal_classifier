@@ -63,10 +63,10 @@ def main(cross_num):
                 #     Y_train.append(index)
 
                 # Transpose
-                img_t = image.transpose(Image.FLIP_LEFT_RIGHT)
-                data = np.asarray(img_t)
-                X_train.append(data)
-                Y_train.append(index)
+                # img_t = image.transpose(Image.FLIP_LEFT_RIGHT)
+                # data = np.asarray(img_t)
+                # X_train.append(data)
+                # Y_train.append(index)
 
     rand_array_test = list(range(len(X_test)))
     np.random.shuffle(rand_array_test)

@@ -1,11 +1,11 @@
 # Parameter List
 import keras
 
-version = "5_5_2"
+version = "5_5_3"
 classes = ["dog", "cat"]
 num_classes = len(classes)
 image_size = 256
-input_image_num = 320
+input_image_num = 320  # No flip image
 val_data_num = 80
 cross_num = 4
 epoch_num = 70
