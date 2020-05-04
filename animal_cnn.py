@@ -22,11 +22,11 @@ lay1_width = parameter.lay1_width
 lay2_width = parameter.lay2_width
 lay3_width = parameter.lay3_width
 lay4_width = parameter.lay4_width
-lay5_width = parameter.lay5_width
+# lay5_width = parameter.lay5_width
 conn1_width = parameter.conn1_width
 conn2_width = parameter.conn2_width
 conn3_width = parameter.conn3_width
-conn4_width = parameter.conn4_width
+# conn4_width = parameter.conn4_width
 opt = parameter.opt
 batch_size = parameter.batch_size
 early_stopping_patient = parameter.early_stopping_patient
@@ -103,25 +103,26 @@ def model_train(X_train, Y_train, X_test, Y_test, database_path_current):
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.25))
 
-    model.add(Conv2D(lay5_width, (kernel_size, kernel_size,), padding="same"))
-    model.add(Activation("relu"))
-    model.add(Conv2D(lay5_width, (kernel_size, kernel_size)))
-    model.add(Activation("relu"))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
+    # model.add(Conv2D(lay5_width, (kernel_size, kernel_size,), padding="same"))
+    # model.add(Activation("relu"))
+    # model.add(Conv2D(lay5_width, (kernel_size, kernel_size)))
+    # model.add(Activation("relu"))
+    # model.add(MaxPooling2D(pool_size=(2, 2)))
+    # model.add(Dropout(0.25))
 
     model.add(Flatten())  # Flat処理、一列にする
 
-    # model.add(Dense(conn1_width))  # 全結合層
-    # model.add(Activation("relu"))
-    # model.add(Dropout(0.5))
+    model.add(Dense(conn1_width))  # 全結合層
+    model.add(Activation("relu"))
+    model.add(Dropout(0.5))
     model.add(Dense(conn2_width))  # 全結合層
     model.add(Activation("relu"))
     model.add(Dropout(0.5))
     model.add(Dense(conn3_width))
-    model.add(Activation("relu"))
-    model.add(Dropout(0.5))
-    model.add(Dense(conn4_width))
+    # model.add(Activation("relu"))
+    # model.add(Dropout(0.5))
+    # model.add(Dense(conn4_width))
+
     model.add(Activation("softmax"))
 
     model.compile(
