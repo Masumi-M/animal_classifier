@@ -24,7 +24,7 @@ database_path = parameter.database_path
 conn1_width = parameter.conn1_width
 conn2_width = parameter.conn2_width
 conn3_width = parameter.conn3_width
-
+conn4_width = parameter.conn4_width
 
 def build_model():
     model = Sequential()
@@ -67,9 +67,9 @@ def build_model():
 
     model.add(Flatten())  # Flat処理、一列にする
 
-    model.add(Dense(conn1_width))  # 全結合層
-    model.add(Activation("relu"))
-    model.add(Dropout(0.5))
+    # model.add(Dense(conn1_width))  # 全結合層
+    # model.add(Activation("relu"))
+    # model.add(Dropout(0.5))
     model.add(Dense(conn2_width))  # 全結合層
     model.add(Activation("relu"))
     model.add(Dropout(0.5))
