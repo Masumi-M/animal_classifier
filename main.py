@@ -3,7 +3,7 @@ import generate_data
 import animal_cnn
 import calc_mean
 import notify_line
-import predict
+# import predict
 import os
 import time
 import parameter

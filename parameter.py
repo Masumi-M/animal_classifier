@@ -1,11 +1,11 @@
 # Parameter List
 import keras
 
-version = "5_5_3"
+version = "7_1"
 classes = ["dog", "cat"]
 num_classes = len(classes)
-image_size = 256
-input_image_num = 320  # No flip image
+image_size = 500    # 256 => 500
+input_image_num = 320
 val_data_num = 80
 cross_num = 4
 epoch_num = 70
@@ -16,9 +16,11 @@ lay1_width = 16
 lay2_width = 32
 lay3_width = 64
 lay4_width = 128
+lay5_width = 256
 conn1_width = 512
 conn2_width = 256
-conn3_width = num_classes
+conn3_width = 128
+conn4_width = num_classes
 batch_size = 128
 opt_name = "rmsprop"
 # opt_name = "adam"
